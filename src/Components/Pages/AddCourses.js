@@ -202,7 +202,7 @@ const AddCourses = () => {
           },
         ]}
       >
-        <Input.TextArea showCount maxLength={100} />
+        <Input.TextArea showCount />
       </Form.Item>
 
       <Form.Item
