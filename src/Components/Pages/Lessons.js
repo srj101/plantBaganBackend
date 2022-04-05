@@ -10,6 +10,7 @@ const GET_LESSONS = gql`
       video
       quizURL
       courseId
+      locked
       sectionId
     }
   }
@@ -49,6 +50,7 @@ function Lessons() {
                     <th>Title</th>
                     <th>Video</th>
                     <th>Section ID</th>
+                    <th>Locked</th>
                     <th>Course ID</th>
                     <th>Quiz URL</th>
                     <th>Delete</th>
@@ -64,6 +66,7 @@ function Lessons() {
                   <td>{lesson.title}</td>
                   <td>{lesson.video}</td>
                   <td>{lesson.sectionId}</td>
+                  <th>{lesson.locked? 'Yes' : 'No'}</th>
                   <td>{lesson.courseId}</td>
                   <td>{lesson.quizURL}</td>
                   <td className='deletebutton' onClick={async(e)=>

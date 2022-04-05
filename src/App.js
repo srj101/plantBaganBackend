@@ -28,6 +28,7 @@ import Comments from './Components/Pages/Comments';
 import EditUser from './Components/Pages/EditUser';
 import AddNews from './Components/Pages/AddNews';
 import EditNews from './Components/Pages/EditNews';
+import EditLesson from './Components/Pages/EditLesson';
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
                 
                 <Route exact path="/lessons" element={<Lessons/>} />
                 <Route exact path="/lessons/create" element={<AddLesson/>} />
+                <Route exact path="/lessons/edit/:lessonId" element={<EditLesson/>} />
 
                 <Route exact path="/orders" element={<Orders/>} />
                 <Route exact path="/reviews" element={<Reviews/>} />

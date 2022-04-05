@@ -8,6 +8,7 @@ import {
   Switch
 } from 'antd';
 import JoditEditor from "jodit-react";
+import { useParams } from 'react-router-dom';
 
 const { Option } = Select;
 
@@ -32,10 +33,10 @@ query($getSectionsCourseId: String!){
 `;
 
 
-const ADD_LESSON = gql`
-mutation($sectionId: String!, $createLessonCourseId: String!, $createLessonTitle: String!, $video: String, $quizUrl: String,$locked:Boolean,$content:String){
-  createLesson(sectionId: $sectionId, courseId: $createLessonCourseId,title: $createLessonTitle,video: $video,quizURL: $quizUrl,locked:$locked,content:$content) {
-    title
+const UPDATE_LESSON = gql`
+mutation($updateLessonId: String!, $updateLessonSectionId: String, $updateLessonCourseId: String, $updateLessonTitle: String, $updateLessonVideo: String, $updateLessonQuizUrl: String, $content: String, $updateLessonLocked: Boolean) {
+  updateLesson(id: $updateLessonId, sectionId: $updateLessonSectionId, courseId: $updateLessonCourseId,title: $updateLessonTitle,video: $updateLessonVideo,quizURL: $updateLessonQuizUrl,content: $content,locked: $updateLessonLocked) {
+    id
   }
 }
 `;
@@ -71,15 +72,15 @@ const formItemLayout = {
     },
   };
 
-function AddLesson() {
-  const [input, setInput] = useState(true);
+function EditLesson() {
+    const {lessonId} = useParams();
     const [getSections, sections] = useLazyQuery(GET_SECTIONS);
     const { loading, error, data } = useQuery(GET_COURSES);
     const [form] = Form.useForm();
-    const [createLesson, lessonCreated] = useMutation(ADD_LESSON);
+    const [createLesson, lessonCreated] = useMutation(UPDATE_LESSON);
     const [getCourseID,setCourseID] = useState();
     const [getLessonType,setLessonType] = useState("0");
-    
+    const [input, setInput] = useState(true);
     const editor = useRef(null);
     const [content, setContent] = useState("Start writing");
     const config = {
@@ -92,15 +93,17 @@ function AddLesson() {
       
     };
     const onFinish = async(values) => {
+      
       await createLesson({
         variables: {
-          createLessonCourseId: getCourseID,
-          sectionId: values.sectionId,
-          createLessonTitle:values.title,
-          video:values.video,
-          quizUrl:values.quizURL,
+            updateLessonId: lessonId,
+            updateLessonCourseId: getCourseID,
+          updateLessonSectionId: values.sectionId,
+          updateLessonTitle:values.title,
+          updateLessonVideo:values.video,
+          updateLessonQuizUrl:values.quizURL,
           content:values.content,
-          locked: input
+          updateLessonLocked: values.locked
         }
       })
     };
@@ -131,7 +134,7 @@ function AddLesson() {
             <p><b>Lesson List</b></p>
         </blockquote>
         <figcaption className="blockquote-footer">
-            <cite title="Source Title">Add  Lesson</cite>
+            <cite title="Source Title">Update  Lesson</cite>
         </figcaption>
         </figure>
 
@@ -159,7 +162,6 @@ function AddLesson() {
         label="Course"
         rules={[
           {
-            required:true,
             whitespace: true,
           },
         ]}
@@ -181,7 +183,6 @@ function AddLesson() {
         label="Section"
         rules={[
           {
-            required:true,
             whitespace: true,
           },
         ]}
@@ -200,7 +201,6 @@ function AddLesson() {
         label="Lesson Type"
         rules={[
           {
-            required:true,
             whitespace: true,
           },
         ]}
@@ -213,14 +213,11 @@ function AddLesson() {
       </Form.Item>
 
       
+
+
       <Form.Item
         name="locked"
         label="Locked"
-        rules={[
-          {
-            required:true,
-          },
-        ]}
       >
           <Switch
           name="locked"
@@ -230,9 +227,6 @@ function AddLesson() {
           }}
         />
       </Form.Item>
-
-
-      
 
       
       
@@ -278,7 +272,7 @@ function AddLesson() {
 
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit" disabled={lessonCreated.loading}>
-          Add Lesson
+          Update Lesson
         </Button>
       </Form.Item>
     </Form>
@@ -289,4 +283,4 @@ function AddLesson() {
   )
 }
 
-export default AddLesson
+export default EditLesson
