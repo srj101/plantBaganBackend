@@ -71,6 +71,9 @@ const formItemLayout = {
   };
 
 function AddLesson() {
+
+  
+
     const [getSections, sections] = useLazyQuery(GET_SECTIONS);
     const { loading, error, data } = useQuery(GET_COURSES);
     const [form] = Form.useForm();
@@ -78,7 +81,17 @@ function AddLesson() {
     const [getCourseID,setCourseID] = useState();
     const [getLessonType,setLessonType] = useState("0");
     
-
+    const editor = useRef(null);
+    const [content, setContent] = useState("Start writing");
+    const config = {
+      readonly: false,
+      height: 400
+    };
+    const handleUpdate = (event) => {
+      const editorContent = event.target.text;
+      setContent(editorContent);
+      
+    };
     const onFinish = async(values) => {
       
       await createLesson({
@@ -87,7 +100,8 @@ function AddLesson() {
           sectionId: values.sectionId,
           createLessonTitle:values.title,
           video:values.video,
-          quizUrl:values.quizURL
+          quizUrl:values.quizURL,
+          content:values.content
         }
       })
     };
@@ -223,6 +237,24 @@ function AddLesson() {
           )
         }
 
+        
+      <Form.Item
+        name="content"
+        label="Description"
+        rules={[
+          {
+            message: 'Please input Description',
+          },
+        ]}
+      >
+        <JoditEditor
+            ref={editor}
+            value={content}
+            config={config}
+            onBlur={handleUpdate}
+            onChange={(newContent) => {}}
+        />
+      </Form.Item>
       
 
 
