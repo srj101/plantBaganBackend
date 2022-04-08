@@ -13,7 +13,7 @@ const { Option } = Select;
 
 
 const UPDATE_ORDER = gql`
-mutation($updateOrderId: String!, $status: String, $completed: String) {
+mutation($updateOrderId: String!, $status: String, $completed: Boolean) {
   updateOrder(id: $updateOrderId,status: $status,completed: $completed) {
     id
   }
@@ -60,6 +60,7 @@ function EditOrder() {
         await updateOrder({
             variables: {
                 ...values,
+                completed:input,
                 updateOrderId:orderId
             }
         })
