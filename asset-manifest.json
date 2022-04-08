@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/plantBaganBackend/static/css/main.a5903e03.css",
-    "main.js": "/plantBaganBackend/static/js/main.c7863387.js",
+    "main.js": "/plantBaganBackend/static/js/main.101740bc.js",
     "static/media/body.png": "/plantBaganBackend/static/media/body.4ac937c2a6474e9c5c9e.png",
     "static/media/header.png": "/plantBaganBackend/static/media/header.1875a6c0448408551f19.png",
     "index.html": "/plantBaganBackend/index.html",
     "main.a5903e03.css.map": "/plantBaganBackend/static/css/main.a5903e03.css.map",
-    "main.c7863387.js.map": "/plantBaganBackend/static/js/main.c7863387.js.map"
+    "main.101740bc.js.map": "/plantBaganBackend/static/js/main.101740bc.js.map"
   },
   "entrypoints": [
     "static/css/main.a5903e03.css",
-    "static/js/main.c7863387.js"
+    "static/js/main.101740bc.js"
   ]
 }
