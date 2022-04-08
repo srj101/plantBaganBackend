@@ -29,6 +29,7 @@ import EditUser from './Components/Pages/EditUser';
 import AddNews from './Components/Pages/AddNews';
 import EditNews from './Components/Pages/EditNews';
 import EditLesson from './Components/Pages/EditLesson';
+import EditOrder from './Components/Pages/EditOrder';
 
 function App() {
   return (
@@ -57,6 +58,8 @@ function App() {
                 <Route exact path="/lessons/edit/:lessonId" element={<EditLesson/>} />
 
                 <Route exact path="/orders" element={<Orders/>} />
+                <Route exact path="/orders/edit/:orderId" element={<EditOrder/>} />
+
                 <Route exact path="/reviews" element={<Reviews/>} />
 
                 <Route exact path="/sections" element={<Sections/>} />
